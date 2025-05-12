@@ -68,9 +68,9 @@ const FacebookAuth = () => {
     <div className="flex flex-col md:flex-row items-center justify-center h-screen bg-gray-100 p-4">
       {/* Left Section */}
       <div className="text-center md:text-left md:w-1/2 mb-10 md:mb-0">
-        <h1 className="text-5xl font-bold text-blue-600">facebook</h1>
+        <h1 className="text-5xl font-bold text-blue-600">Socialbook</h1>
         <p className="mt-4 text-gray-700 text-lg">
-          Facebook helps you connect and share with the people in your life.
+          Socialbook helps you connect and share with the people in your life.
         </p>
       </div>
 

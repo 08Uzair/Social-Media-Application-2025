@@ -30,9 +30,11 @@ export const deleteBookMark = (id) => API.delete(`/bookmark/${id}`);
 
 
 // User
+// http://localhost:8200/api/v1/user/67f12ab491a479ba0e986977
 export const getUsers = () => API.get("/user");
 export const getUserById = (id) => API.get(`/user/${id}`);
 export const signUp = (newUser) => API.post("/user/signUp", newUser);
 export const signIn = (newUser) => API.post("/user/signIn", newUser);
 export const updateUser = (id, updatedUser) =>
   API.put(`/user/${id}`, updatedUser);
+

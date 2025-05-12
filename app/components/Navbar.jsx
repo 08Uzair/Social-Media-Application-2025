@@ -68,7 +68,7 @@ const Navbar = () => {
         <div className="nav-right">
           <div className="search-box">
             <Image src={search} alt="Search Icon" />
-            {/* <input type="text" placeholder="Search" /> */}
+            <input type="text" placeholder="Search" />
           </div>
 
           {/* Avatar Icon for Toggle */}

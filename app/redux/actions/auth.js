@@ -1,3 +1,4 @@
+import { useDispatch } from "react-redux";
 import * as api from "../api";
 import {
   AUTH,
@@ -27,7 +28,7 @@ export const signUp = (newUser) => async (dispatch) => {
 export const getUsers = () => async (dispatch) => {
   try {
     const { data } = await api.getUsers();
-    console.log(data , " This is action User Data")
+    console.log(data, " This is action User Data");
     dispatch({ type: FETCH_USER, payload: data });
   } catch (error) {
     console.log(error);
@@ -76,25 +77,44 @@ export const mergeAndUpdateLocalUserData = (updatedFields) => {
   }
 };
 
-export const getFollowersByIds = async (userIds, dispatch) => {
+export const getAllUsersByIds = async (userIds, dispatch) => {
+  console.log(userIds, "This is array of ID's");
   try {
-    const userPromises = userIds.map((id) => dispatch(getUserByID(id)));
+    console.log("This is Level 1");
+
+    const userPromises = userIds.map(async (id) => {
+      console.log(`Dispatching for ID: ${id}`);
+      try {
+        const user = await dispatch(getUserByID(id));
+        console.log(user, "✅ This is UserData");
+        return user;
+      } catch (err) {
+        console.log(`❌ Failed to fetch user with ID: ${id}`);
+        console.log(err);
+        return null;
+      }
+    });
+
     const usersData = await Promise.all(userPromises);
-    console.log(userIds, "This is fetched UserData");
-    return usersData; // ✅ contains actual user data
+    console.log(usersData, "This is Level 2");
+
+    // Filter out nulls (failed fetches)
+    return usersData.filter(Boolean);
   } catch (error) {
     console.error("Error fetching users:", error);
     return [];
   }
 };
 
-export const getFollowingByIds = async (userIds, dispatch) => {
-  try {
-    const userPromises = userIds.map((id) => dispatch(getUserByID(id)));
-    const usersData = await Promise.all(userPromises);
-    return usersData;
-  } catch (error) {
-    console.error("Error fetching users:", error);
-    return [];
-  }
-};
+// export const getFollowingByIds = async (userIds, dispatch) => {
+//   try {
+//     const userPromises = userIds.map((id) =>
+//       dispatch(getUserByID(id).unwrap())
+//     );
+//     const usersData = await Promise.allSettled(userPromises);
+//     return usersData;
+//   } catch (error) {
+//     console.error("Error fetching users:", error);
+//     return [];
+//   }
+// };
